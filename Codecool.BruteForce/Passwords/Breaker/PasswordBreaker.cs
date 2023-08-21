@@ -2,9 +2,15 @@
 
 public class PasswordBreaker : IPasswordBreaker
 {
+    
+    private readonly char[] _asciiCharacters = Enumerable.Range(48, 122).Select(i => (char)i).ToArray();
     public IEnumerable<string> GetCombinations(int passwordLength)
     {
-        return null;
+        
+        IEnumerable<IEnumerable<string>> stringLists = Enumerable.Repeat(_asciiCharacters.Select(c => c.ToString()), passwordLength);
+        IEnumerable<string> combinations = GetAllPossibleCombos(stringLists);
+
+        return combinations;
     }
 
     private static IEnumerable<string> GetAllPossibleCombos(IEnumerable<IEnumerable<string>> strings)
